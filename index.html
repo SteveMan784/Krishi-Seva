@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=ai-legible&utm_source=comment&utm_medium=referral&utm_id=b0bdc2c7-78ca-4069-a9bb-5fcd7cdd598f
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+<meta name="hosting-provider" content="Netlify">
+<meta name="netlify-deploy" content="https://netlify.new/?utm_campaign=ai-legible&amp;utm_source=meta&amp;utm_medium=referral&amp;utm_id=b0bdc2c7-78ca-4069-a9bb-5fcd7cdd598f">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Krishi Seva | Intelligent Mandi Queue & MSP Procurement System (SIH-26032)</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            saffron: '#FF9933',
+            indiaGreen: '#138808',
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+              950: '#052e16',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Progressive Web App (PWA) Manifest & Meta -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg" />
+  <meta name="theme-color" content="#064e3b" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Krishi Seva" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Embedded All-India MSP Data, Standalone QR Engine, Translations, Charts, and Confetti -->
+  <script src="js/msp_data.js"></script>
+  <script src="js/qr_engine.js"></script>
+  <script src="js/translations.js"></script>
+  <script src="assets/confetti.browser.min.js"></script>
+  <script src="assets/chart.umd.min.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-emerald-600 selection:text-white">
+
+  <!-- ============================================================ -->
+  <!-- 1. NATIONAL TRICOLOUR SLOGAN STRIP                           -->
+  <!-- ============================================================ -->
+  <div class="bg-slate-900 text-white text-center py-1.5 px-4 text-xs font-bold tracking-wider border-b border-slate-800 flex items-center justify-center gap-2 select-none shadow-sm">
+    <span class="text-[#FF9933]">Jai Jawan</span>
+    <span class="text-slate-500">•</span>
+    <span class="text-[#FF9933]">Jai Kisan</span>
+    <span class="text-slate-500">•</span>
+    <span class="text-white flex items-center gap-1.5">
+      <i class="fa-solid fa-dharmachakra text-blue-400 text-sm animate-spin" style="animation-duration: 20s;"></i>
+      Jai Vigyan
+    </span>
+    <span class="text-slate-500">•</span>
+    <span class="text-[#138808]">Jai Anusandhan</span>
+    <span class="ml-2 text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700 hidden sm:inline">
+      SIH-26032
+    </span>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 2. TOP OFFICIAL GOVERNMENT STRIP                             -->
+  <!-- ============================================================ -->
+  <header class="bg-emerald-950 text-white border-b border-emerald-800/80 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs">
+      
+      <!-- Brand & Emblem -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-700 flex items-center justify-center text-white text-xl shadow-inner cursor-pointer" onclick="showHomeScreen()">
+          <i class="fa-solid fa-wheat-awn"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-extrabold text-base tracking-tight text-white flex items-center gap-1.5 cursor-pointer" onclick="showHomeScreen()" data-i18n="portalTitle">
+              Krishi Seva
+            </h1>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 uppercase">
+              MSP 2026-27
+            </span>
+          </div>
+          <p class="text-[11px] text-emerald-200/80 font-medium hidden sm:block" data-i18n="portalSubtitle">
+            Intelligent Mandi Queue & MSP Procurement Optimization System (SIH-26032)
+          </p>
+        </div>
+      </div>
+
+      <!-- Center: Public Website Navigation Links -->
+      <nav id="top-public-nav-links" class="hidden lg:flex items-center gap-1 font-semibold text-xs">
+        <button onclick="navigateToWebsite()" class="px-3 py-1.5 rounded-xl hover:bg-emerald-800 text-white transition flex items-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-house"></i> <span>Home</span>
+        </button>
+        <button onclick="scrollToWebsiteSection('section-msp-rates')" class="px-3 py-1.5 rounded-xl hover:bg-emerald-800 text-emerald-100 hover:text-white transition flex items-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-scale-balanced"></i> <span>MSP Rates</span>
+        </button>
+        <button onclick="scrollToWebsiteSection('section-mandi-directory')" class="px-3 py-1.5 rounded-xl hover:bg-emerald-800 text-emerald-100 hover:text-white transition flex items-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-location-dot"></i> <span>Mandi Centers</span>
+        </button>
+        <button onclick="scrollToWebsiteSection('section-how-it-works')" class="px-3 py-1.5 rounded-xl hover:bg-emerald-800 text-emerald-100 hover:text-white transition flex items-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-route"></i> <span>How It Works</span>
+        </button>
+        <button onclick="navigateToAuth('farmer')" class="ml-1 px-3.5 py-1.5 rounded-xl bg-emerald-800/90 hover:bg-emerald-700 text-amber-300 font-bold border border-emerald-600/60 transition flex items-center gap-1.5 cursor-pointer shadow-sm">
+          <i class="fa-solid fa-right-to-bracket text-amber-400"></i> <span>Portals / Login</span>
+        </button>
+      </nav>
+
+      <!-- Center: Active User Session Badge -->
+      <div id="top-active-session-indicator" class="hidden flex items-center gap-2 bg-emerald-900/90 px-3 py-1.5 rounded-2xl border border-emerald-700/60 text-xs">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-emerald-200 font-semibold">User:</span>
+        <span id="top-user-name-display" class="font-bold text-white">Rameshwar Lal Sharma</span>
+        <span class="px-2 py-0.5 rounded-md bg-emerald-800 text-emerald-100 font-mono text-[10px] font-bold uppercase" id="top-user-role-badge">
+          Farmer
+        </span>
+        <button onclick="handleSignOut()" class="ml-2 px-2 py-0.5 rounded-lg bg-emerald-800 hover:bg-rose-800 text-emerald-200 hover:text-white transition-colors text-[11px] flex items-center gap-1" title="Sign Out">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> <span data-i18n="signOut">Sign Out</span>
+        </button>
+      </div>
+
+      <!-- Right Controls: PWA Install, Network Status, 12 Regional Languages, Voice Assistant, Access Denied Test -->
+      <div class="flex items-center gap-2">
+
+        <!-- Install PWA / Desktop App Button -->
+        <button id="btn-install-app" title="Install Krishi Seva Application" class="px-3 py-1 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-sm transition-all flex items-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-download"></i>
+          <span>Install App</span>
+        </button>
+
+        <!-- Network Online / Offline Status -->
+        <div id="network-status-badge" class="hidden md:flex items-center gap-1.5 px-2 py-1 rounded-xl bg-emerald-900/80 border border-emerald-700 text-[11px] font-semibold text-emerald-300">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" id="network-status-dot"></span>
+          <span id="network-status-text">Online</span>
+        </div>
+
+        <!-- 22 Official Eighth Schedule Indian Languages (+ English) Dropdown -->
+        <div class="flex items-center gap-1.5 bg-slate-900 text-amber-300 px-2.5 py-1 rounded-xl border border-amber-500/40 shadow-sm">
+          <i class="fa-solid fa-language text-amber-400 text-sm"></i>
+          <select id="global-lang-select" class="bg-slate-900 text-amber-200 text-xs font-bold focus:outline-none cursor-pointer border-none">
+            <option value="en" class="bg-slate-900 text-white font-bold">English</option>
+            <option value="hi" class="bg-slate-900 text-white font-bold">हिन्दी (Hindi)</option>
+            <option value="kn" class="bg-slate-900 text-white font-bold">ಕನ್ನಡ (Kannada)</option>
+            <option value="ml" class="bg-slate-900 text-white font-bold">മലയാളം (Malayalam)</option>
+            <option value="ta" class="bg-slate-900 text-white font-bold">தமிழ் (Tamil)</option>
+            <option value="te" class="bg-slate-900 text-white font-bold">తెలుగు (Telugu)</option>
+            <option value="mr" class="bg-slate-900 text-white font-bold">मराठी (Marathi)</option>
+            <option value="pa" class="bg-slate-900 text-white font-bold">ਪੰਜਾਬੀ (Punjabi)</option>
+            <option value="bn" class="bg-slate-900 text-white font-bold">বাংলা (Bengali)</option>
+            <option value="gu" class="bg-slate-900 text-white font-bold">ગુજરાતી (Gujarati)</option>
+            <option value="or" class="bg-slate-900 text-white font-bold">ଓଡ଼ିଆ (Odia)</option>
+            <option value="as" class="bg-slate-900 text-white font-bold">অসমীয়া (Assamese)</option>
+            <option value="brx" class="bg-slate-900 text-white font-bold">बर' (Bodo)</option>
+            <option value="doi" class="bg-slate-900 text-white font-bold">डोगरी (Dogri)</option>
+            <option value="ks" class="bg-slate-900 text-white font-bold">کٲشُر (Kashmiri)</option>
+            <option value="kok" class="bg-slate-900 text-white font-bold">कोंकणी (Konkani)</option>
+            <option value="mai" class="bg-slate-900 text-white font-bold">मैथिली (Maithili)</option>
+            <option value="mni" class="bg-slate-900 text-white font-bold">মৈতৈলোন্ (Manipuri)</option>
+            <option value="ne" class="bg-slate-900 text-white font-bold">नेपाली (Nepali)</option>
+            <option value="sa" class="bg-slate-900 text-white font-bold">संस्कृतम् (Sanskrit)</option>
+            <option value="sat" class="bg-slate-900 text-white font-bold">ᱥᱟᱱᱛᱟᱲᱤ (Santali)</option>
+            <option value="sd" class="bg-slate-900 text-white font-bold">سنڌي (Sindhi)</option>
+            <option value="ur" class="bg-slate-900 text-white font-bold">اُردُو (Urdu)</option>
+          </select>
+        </div>
+
+        <!-- Voice Assistant Audio Toggle -->
+        <button id="toggle-sound-btn" title="Toggle Speech / Audio Assistant" class="w-8 h-8 rounded-xl bg-emerald-900 hover:bg-emerald-800 border border-emerald-700 flex items-center justify-center text-emerald-300 hover:text-white transition-colors">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+
+        <!-- Access Denied Simulator (Flowchart 'Is User Authorized?') -->
+        <button id="btn-simulate-deny" title="Simulate Access Denied Branch" class="px-2.5 py-1 rounded-xl bg-rose-950/80 hover:bg-rose-900 border border-rose-700 text-rose-200 text-[11px] font-semibold transition-colors flex items-center gap-1">
+          <i class="fa-solid fa-lock"></i>
+          <span class="hidden md:inline">Test Denied</span>
+        </button>
+
+        <!-- Reset Demo Data -->
+        <button id="btn-reset-demo" title="Reset Demo Data" class="w-8 h-8 rounded-xl bg-emerald-900 hover:bg-emerald-800 border border-emerald-700 flex items-center justify-center text-emerald-300 hover:text-white transition-colors">
+          <i class="fa-solid fa-rotate"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ============================================================ -->
+  <!-- 3. LIVE MANDI TRAFFIC & ROAD ADVISORY BANNER (ADMIN CONTROLLED) -->
+  <!-- ============================================================ -->
+  <div id="mandi-traffic-banner" class="hidden bg-amber-50 border-b border-amber-200 text-amber-950 px-4 py-2 shadow-sm transition-colors">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2">
+        <span id="mandi-traffic-indicator-pill" class="px-2.5 py-0.5 rounded-full font-bold uppercase text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Normal Traffic
+        </span>
+        <span class="text-slate-300">|</span>
+        <span class="font-bold text-slate-700" id="mandi-traffic-location">Yeshwanthpur Main APMC Yard:</span>
+        <span class="text-slate-600 font-medium" id="mandi-traffic-msg">Approach roads clear. Weighbridge operational at standard throughput.</span>
+      </div>
+      <div class="text-[11px] text-slate-500 font-mono" id="mandi-traffic-timestamp">
+        Updated: Just now
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 4. ACCESS DENIED SCREEN (Flowchart 'NO -> ACCESS DENIED')    -->
+  <!-- ============================================================ -->
+  <section id="access-denied-section" class="hidden flex-1 flex items-center justify-center p-6">
+    <div class="max-w-md w-full bg-white rounded-3xl p-8 shadow-2xl border-2 border-rose-200 text-center space-y-5">
+      <div class="w-20 h-20 mx-auto rounded-full bg-rose-100 border-4 border-rose-300 flex items-center justify-center text-rose-600 text-3xl shadow-inner">
+        <i class="fa-solid fa-ban"></i>
+      </div>
+      <div>
+        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-rose-100 text-rose-800 tracking-wider">
+          Authorization Guard: Verification Failed
+        </span>
+        <h2 class="text-2xl font-black text-slate-900 mt-3" data-i18n="accessDeniedTitle">
+          Access Denied / Unauthorized
+        </h2>
+        <p class="text-slate-600 text-sm mt-2 leading-relaxed" data-i18n="accessDeniedMsg">
+          Your credentials do not have clearance for this APMC procurement center. Please verify your role or re-authenticate.
+        </p>
+      </div>
+      <div class="bg-rose-50 p-4 rounded-2xl border border-rose-200 text-xs text-rose-900 text-left space-y-1 font-mono">
+        <div><strong>Status Code:</strong> 403_FORBIDDEN_MANDI_ACCESS</div>
+        <div><strong>Security Protocol:</strong> APMC-AUTH-GATEWAY-2026</div>
+        <div><strong>Action:</strong> Re-login with valid role credentials</div>
+      </div>
+      <div class="pt-2 flex flex-col gap-2">
+        <button id="btn-restore-access" class="w-full py-3 px-4 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl font-bold shadow-lg shadow-emerald-700/20 transition-all flex items-center justify-center gap-2 text-xs">
+          <i class="fa-solid fa-key"></i> <span data-i18n="restoreAccess">Restore Valid Authorization</span>
+        </button>
+        <button onclick="handleSignOut()" class="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-2xl font-semibold text-xs transition-colors">
+          Return to Login Gateway
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 4B. OFFICIAL PUBLIC WEBSITE / LANDING PAGE                   -->
+  <!-- ============================================================ -->
+  <main id="public-website-section" class="flex-1 space-y-14 pb-16">
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-gradient-to-b from-emerald-950 via-emerald-900 to-slate-900 text-white pt-10 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <div class="max-w-7xl mx-auto relative z-10 text-center space-y-6">
+        
+        <!-- Top Gov Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-800/80 border border-emerald-600/60 text-xs font-semibold tracking-wide text-emerald-200 backdrop-blur-sm shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span>Government of India • Ministry of Agriculture & Farmers Welfare • SIH-26032</span>
+        </div>
+
+        <!-- Main Headline -->
+        <div class="space-y-3 max-w-4xl mx-auto">
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+            Krishi Seva <span class="text-amber-400 font-serif font-normal">(कृषि सेवा)</span>
+          </h1>
+          <p class="text-lg sm:text-2xl font-bold text-emerald-100">
+            Intelligent Mandi Queue, Slot Booking & MSP Procurement Optimization
+          </p>
+          <p class="text-xs sm:text-sm text-emerald-200/90 max-w-2xl mx-auto font-normal leading-relaxed">
+            Eliminating multi-day roadside bottlenecks, removing predatory middlemen, predicting turnaround latency with AI, and delivering guaranteed Direct Benefit Transfer (DBT) directly into farmer bank accounts.
+          </p>
+        </div>
+
+        <!-- 3 Primary Portal Access Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 max-w-5xl mx-auto text-left">
+          
+          <!-- Card 1: Farmer Portal -->
+          <div class="bg-white/10 hover:bg-white/15 backdrop-blur-md rounded-3xl p-6 border border-white/20 transition-all shadow-xl hover:-translate-y-1 flex flex-col justify-between group">
+            <div class="space-y-3">
+              <div class="w-12 h-12 rounded-2xl bg-emerald-600 flex items-center justify-center text-white text-2xl shadow-lg">
+                <i class="fa-solid fa-tractor"></i>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-amber-300">Kisan Services</span>
+                <h3 class="text-xl font-bold text-white mt-0.5">Farmer Portal</h3>
+              </div>
+              <p class="text-xs text-emerald-100/80 leading-relaxed">
+                Book operational shifts, check live queue positions, view AI wait-time turnaround estimates, and generate scannable QR / SMS gate passes.
+              </p>
+              <ul class="text-[11px] text-emerald-200 space-y-1 pt-1 font-medium">
+                <li><i class="fa-solid fa-check text-amber-400 mr-1.5"></i> 4 Mandi Operational Shifts</li>
+                <li><i class="fa-solid fa-check text-amber-400 mr-1.5"></i> Probable AI Turnaround ETA</li>
+                <li><i class="fa-solid fa-check text-amber-400 mr-1.5"></i> Digital QR Code & SMS Pass</li>
+              </ul>
+            </div>
+            <button onclick="navigateToAuth('farmer')" class="mt-6 w-full py-3 px-4 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-2xl font-bold text-xs shadow-lg shadow-amber-500/20 transition flex items-center justify-center gap-2 group-hover:gap-3 cursor-pointer">
+              <span>Open Farmer Portal</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <!-- Card 2: Staff Terminal -->
+          <div class="bg-white/10 hover:bg-white/15 backdrop-blur-md rounded-3xl p-6 border border-white/20 transition-all shadow-xl hover:-translate-y-1 flex flex-col justify-between group">
+            <div class="space-y-3">
+              <div class="w-12 h-12 rounded-2xl bg-sky-600 flex items-center justify-center text-white text-2xl shadow-lg">
+                <i class="fa-solid fa-clipboard-check"></i>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-sky-300">APMC Mandi Operations</span>
+                <h3 class="text-xl font-bold text-white mt-0.5">Staff Terminal</h3>
+              </div>
+              <p class="text-xs text-emerald-100/80 leading-relaxed">
+                Scan QR passes at mandi gate, record gross & tare weighbridge readings, perform AGMARKNET quality moisture grading, and trigger instant DBT payouts.
+              </p>
+              <ul class="text-[11px] text-emerald-200 space-y-1 pt-1 font-medium">
+                <li><i class="fa-solid fa-check text-sky-400 mr-1.5"></i> QR Gate Scanner Lookup</li>
+                <li><i class="fa-solid fa-check text-sky-400 mr-1.5"></i> Digital Weighbridge (Net Qtl)</li>
+                <li><i class="fa-solid fa-check text-sky-400 mr-1.5"></i> AGMARKNET Moisture Lab</li>
+              </ul>
+            </div>
+            <button onclick="navigateToAuth('staff')" class="mt-6 w-full py-3 px-4 bg-sky-500 hover:bg-sky-400 text-slate-950 rounded-2xl font-bold text-xs shadow-lg shadow-sky-500/20 transition flex items-center justify-center gap-2 group-hover:gap-3 cursor-pointer">
+              <span>Open Staff Desk</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <!-- Card 3: Admin Command -->
+          <div class="bg-white/10 hover:bg-white/15 backdrop-blur-md rounded-3xl p-6 border border-white/20 transition-all shadow-xl hover:-translate-y-1 flex flex-col justify-between group">
+            <div class="space-y-3">
+              <div class="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-2xl shadow-lg">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-300">Executive Governance</span>
+                <h3 class="text-xl font-bold text-white mt-0.5">Mandi Admin Portal</h3>
+              </div>
+              <p class="text-xs text-emerald-100/80 leading-relaxed">
+                Broadcast live road and gate traffic congestion advisories to incoming farmers, manage shift quotas, audit DBT settlements, and export procurement ledgers.
+              </p>
+              <ul class="text-[11px] text-emerald-200 space-y-1 pt-1 font-medium">
+                <li><i class="fa-solid fa-check text-indigo-400 mr-1.5"></i> Mandi Traffic Declaration</li>
+                <li><i class="fa-solid fa-check text-indigo-400 mr-1.5"></i> Real-time Capacity Overrides</li>
+                <li><i class="fa-solid fa-check text-indigo-400 mr-1.5"></i> Export Official CSV Audit Ledgers</li>
+              </ul>
+            </div>
+            <button onclick="navigateToAuth('admin')" class="mt-6 w-full py-3 px-4 bg-indigo-500 hover:bg-indigo-400 text-slate-950 rounded-2xl font-bold text-xs shadow-lg shadow-indigo-500/20 transition flex items-center justify-center gap-2 group-hover:gap-3 cursor-pointer">
+              <span>Open Admin Center</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Key Metrics Strip -->
+        <div class="pt-8 grid grid-cols-2 sm:grid-cols-5 gap-4 max-w-4xl mx-auto border-t border-emerald-800/80">
+          <div class="text-center">
+            <div class="text-2xl sm:text-3xl font-black text-amber-400">28+</div>
+            <div class="text-[11px] text-emerald-200 uppercase font-semibold">States & UTs</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl sm:text-3xl font-black text-white">500+</div>
+            <div class="text-[11px] text-emerald-200 uppercase font-semibold">APMC & PACS Yards</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl sm:text-3xl font-black text-emerald-300">₹2,425</div>
+            <div class="text-[11px] text-emerald-200 uppercase font-semibold">Wheat MSP / Qtl</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl sm:text-3xl font-black text-sky-400">94%+</div>
+            <div class="text-[11px] text-emerald-200 uppercase font-semibold">AI Queue Accuracy</div>
+          </div>
+          <div class="text-center col-span-2 sm:col-span-1">
+            <div class="text-2xl sm:text-3xl font-black text-emerald-400">100%</div>
+            <div class="text-[11px] text-emerald-200 uppercase font-semibold">Direct DBT to Bank</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 2: LIVE MSP COMMODITY RATES (2025-26 Season) -->
+    <section id="section-msp-rates" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <div class="flex flex-wrap items-end justify-between gap-4 border-b border-slate-200 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+            Government of India Guaranteed Rates
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-2">
+            Official Minimum Support Price (MSP) Rates 2025-26
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">
+            Benchmark procurement rates declared by the Commission for Agricultural Costs and Prices (CACP)
+          </p>
+        </div>
+        <button onclick="navigateToAuth('farmer')" class="py-2.5 px-4 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-sm cursor-pointer">
+          <i class="fa-solid fa-calendar-check"></i> Book Mandi Slot at MSP
+        </button>
+      </div>
+
+      <!-- Commodity Grid -->
+      <div id="website-msp-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Rendered dynamically by renderWebsiteMspGrid() -->
+      </div>
+    </section>
+
+    <!-- SECTION 3: ALL-INDIA MANDI PROCUREMENT CENTER LOCATOR -->
+    <section id="section-mandi-directory" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <div class="bg-gradient-to-r from-slate-900 via-emerald-950 to-slate-900 text-white p-6 sm:p-10 rounded-3xl shadow-xl space-y-6">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-400 bg-amber-400/20 px-3 py-1 rounded-full border border-amber-400/40">
+            Directory Extracted from Official Procurement PDFs
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-black text-white mt-2">
+            All-India Mandi & Procurement Center Locator
+          </h2>
+          <p class="text-xs sm:text-sm text-emerald-200/90 mt-1">
+            Search primary APMC Mandis, TAPCMS, PACS, TNCSC, and Supplyco centers across all 28+ States and UTs.
+          </p>
+        </div>
+
+        <!-- Cascading Filter Controls -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
+          <div class="space-y-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-emerald-200">Select State</label>
+            <select id="website-filter-state" onchange="handleWebsiteStateChange()" class="w-full bg-slate-900 border border-emerald-500/40 text-white rounded-xl p-3 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-amber-400 cursor-pointer">
+              <!-- Populated by populateWebsiteStates -->
+            </select>
+          </div>
+          <div class="space-y-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-emerald-200">Select District</label>
+            <select id="website-filter-district" onchange="handleWebsiteDistrictChange()" class="w-full bg-slate-900 border border-emerald-500/40 text-white rounded-xl p-3 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-amber-400 cursor-pointer">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+          <div class="flex items-end">
+            <button onclick="navigateToAuth('farmer')" class="w-full py-3 px-4 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition flex items-center justify-center gap-2 shadow-md cursor-pointer">
+              <i class="fa-solid fa-calendar-plus"></i>
+              <span>Book Slot in This Mandi</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Center Results Container -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between text-xs text-emerald-200">
+            <span id="website-centers-count">Showing Procurement Centers</span>
+            <span class="text-amber-300 font-semibold"><i class="fa-solid fa-circle-check"></i> Verified Procurement Depots</span>
+          </div>
+          <div id="website-centers-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-80 overflow-y-auto pr-1">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: HOW IT WORKS (SIH PROBLEM STATEMENT 26032 LIFECYCLE) -->
+    <section id="section-how-it-works" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="text-center space-y-2 max-w-3xl mx-auto">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+          Complete Operational Architecture
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900">
+          How Krishi Seva Optimizes Mandi Procurement
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500">
+          A seamless 6-step digital pipeline engineered for SIH Problem Statement ID 26032
+        </p>
+      </div>
+
+      <!-- 6 Steps Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3 relative hover:border-emerald-500 transition">
+          <div class="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center text-sm">
+            01
+          </div>
+          <h3 class="text-base font-bold text-slate-900">22 Indian Languages (8th Schedule) & Registration</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Accessible in all 22 official Eighth Schedule languages of India plus English with regional text-to-speech voice assistant.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3 relative hover:border-emerald-500 transition">
+          <div class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 font-bold flex items-center justify-center text-sm">
+            02
+          </div>
+          <h3 class="text-base font-bold text-slate-900">Probable AI Waiting Time Engine</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Calculates live ETA based on tractor queues ahead (8 min/trolley), AGMARKNET lab turnaround (5 min), and admin-declared approach road congestion.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3 relative hover:border-emerald-500 transition">
+          <div class="w-10 h-10 rounded-2xl bg-sky-100 text-sky-800 font-bold flex items-center justify-center text-sm">
+            03
+          </div>
+          <h3 class="text-base font-bold text-slate-900">4 Operational Shift Booking</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Farmers book realistic mandi shifts: Early Morning Intake (7-10 AM), Standard Weighbridge (10 AM-1 PM), Afternoon Quality (1:30-4:30 PM), or Evening Payout (4:30-7 PM).
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3 relative hover:border-emerald-500 transition">
+          <div class="w-10 h-10 rounded-2xl bg-indigo-100 text-indigo-800 font-bold flex items-center justify-center text-sm">
+            04
+          </div>
+          <h3 class="text-base font-bold text-slate-900">Offline Scannable QR & SMS Pass</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            High-contrast QR gate pass generated locally with embedded offline engine. Sends TRAI-compliant SMS tokens directly to basic feature phones.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3 relative hover:border-emerald-500 transition">
+          <div class="w-10 h-10 rounded-2xl bg-teal-100 text-teal-800 font-bold flex items-center justify-center text-sm">
+            05
+          </div>
+          <h3 class="text-base font-bold text-slate-900">Digital Weighbridge & Quality Lab</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Staff scans QR pass, records electronic Gross and Tare weights (auto-calculating Net Quintals), and inputs moisture % for AGMARKNET Grade A certification.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3 relative hover:border-emerald-500 transition">
+          <div class="w-10 h-10 rounded-2xl bg-rose-100 text-rose-800 font-bold flex items-center justify-center text-sm">
+            06
+          </div>
+          <h3 class="text-base font-bold text-slate-900">Zero-Middleman Direct DBT Payout</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Instant bank disbursement via Aadhaar Payment Bridge / NPCI with official Bank UTR number. Generates official Government APMC procurement receipts.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 5: KISAN CALL CENTRE & OFFICIAL FOOTER -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+      <div class="bg-slate-100 rounded-3xl p-6 sm:p-8 border border-slate-200 flex flex-wrap items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-700 text-white flex items-center justify-center text-2xl shadow-md">
+            <i class="fa-solid fa-headset"></i>
+          </div>
+          <div>
+            <h4 class="text-base font-bold text-slate-900">24x7 National Kisan Call Centre</h4>
+            <p class="text-xs text-slate-500">Toll-Free Agricultural Support & Mandi Slot Grievances</p>
+            <div class="text-lg font-black text-emerald-800 font-mono mt-0.5">1800-180-1551</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <button onclick="navigateToAuth('farmer')" class="py-3 px-6 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-xs font-bold transition shadow-md flex items-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-tractor"></i> Launch Farmer Services
+          </button>
+          <button onclick="navigateToAuth('staff')" class="py-3 px-6 bg-slate-800 hover:bg-slate-900 text-white rounded-2xl text-xs font-bold transition shadow-md flex items-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-clipboard-check"></i> Staff Desk
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- OFFICIAL GOVT FOOTER -->
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 text-slate-500 text-xs border-t border-slate-200 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+          <span class="font-bold text-slate-800">Krishi Seva (कृषि सेवा)</span>
+          <span>— Developed for Smart India Hackathon (SIH) Problem Statement ID: 26032</span>
+        </div>
+        <div class="flex items-center gap-4 text-[11px]">
+          <a href="javascript:void(0)" onclick="navigateToWebsite()" class="hover:text-emerald-700">Home</a>
+          <a href="javascript:void(0)" onclick="scrollToWebsiteSection('section-msp-rates')" class="hover:text-emerald-700">MSP Rates</a>
+          <a href="javascript:void(0)" onclick="scrollToWebsiteSection('section-mandi-directory')" class="hover:text-emerald-700">Mandi Directory</a>
+          <a href="javascript:void(0)" onclick="navigateToAuth('admin')" class="hover:text-emerald-700">Admin Control</a>
+        </div>
+      </div>
+      <p class="text-[11px] text-slate-400">
+        © 2026 Ministry of Agriculture & Farmers Welfare, Government of India. Integrated with e-NAM, AGMARKNET, and PM-Kisan.
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- ============================================================ -->
+  <!-- 5. DEDICATED AUTHENTICATION GATEWAY (LOGIN / REGISTER)       -->
+  <!-- ============================================================ -->
+  <section id="auth-gateway-section" class="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+    <div class="max-w-2xl w-full bg-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-200 space-y-6">
+      
+      <!-- Back to Website Action -->
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <button type="button" onclick="navigateToWebsite()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition cursor-pointer">
+          <i class="fa-solid fa-arrow-left"></i> <span>Back to Main Website</span>
+        </button>
+        <span class="text-[11px] font-semibold text-slate-400">SIH Problem Statement 26032</span>
+      </div>
+
+      <!-- Auth Header -->
+      <div class="text-center space-y-2">
+        <div class="w-16 h-16 mx-auto rounded-2xl bg-emerald-700 flex items-center justify-center text-white text-3xl shadow-lg shadow-emerald-700/30">
+          <i class="fa-solid fa-building-columns"></i>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900" data-i18n="loginGateTitle">
+          Unified Agricultural Procurement Gateway
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto" data-i18n="loginGateSubtitle">
+          Select your role and authenticate to access your dedicated terminal
+        </p>
+      </div>
+
+      <!-- 3 Role Tabs: Farmer, Staff, Admin -->
+      <div class="flex items-center bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
+        <button id="tab-btn-farmer" onclick="setAuthTab('farmer')" class="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all bg-emerald-700 text-white shadow-md flex items-center justify-center gap-2">
+          <i class="fa-solid fa-tractor"></i> <span data-i18n="tabFarmer">Farmer (Kisan)</span>
+        </button>
+        <button id="tab-btn-staff" onclick="setAuthTab('staff')" class="flex-1 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-emerald-800 transition-all flex items-center justify-center gap-2">
+          <i class="fa-solid fa-clipboard-check"></i> <span data-i18n="tabStaff">Mandi Staff</span>
+        </button>
+        <button id="tab-btn-admin" onclick="setAuthTab('admin')" class="flex-1 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-emerald-800 transition-all flex items-center justify-center gap-2">
+          <i class="fa-solid fa-shield-halved"></i> <span data-i18n="tabAdmin">Administrator</span>
+        </button>
+      </div>
+
+      <!-- FORM 1: FARMER LOGIN & REGISTRATION (User types farmer name!) -->
+      <form id="form-login-farmer" onsubmit="handleFarmerLogin(event)" class="space-y-4">
+        <div class="bg-emerald-50/80 p-4 rounded-2xl border border-emerald-200 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2 text-emerald-950 font-semibold">
+            <i class="fa-solid fa-user-pen text-emerald-700"></i>
+            <span>Farmer Registration & OTP Verification (SIH-26032)</span>
+          </div>
+          <button type="button" onclick="demoFillFarmerLogin()" class="px-3 py-1 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg font-bold text-[11px] transition-all shadow-sm">
+            <i class="fa-solid fa-bolt"></i> <span data-i18n="demoFillFarmer">1-Click Fill: Registered Farmer</span>
+          </button>
+        </div>
+
+        <!-- FARMER FULL NAME (Typeable!) -->
+        <div class="space-y-1.5">
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-700" data-i18n="farmerNameLabel">
+            Farmer Full Name
+          </label>
+          <input type="text" id="farmer-login-name" placeholder="Enter full name of farmer (e.g. Rameshwar Lal Sharma)" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-bold text-slate-800 focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+        </div>
+
+        <!-- Responsive Grid: Mobile Number & Aadhaar Number -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Mobile Number -->
+          <div class="space-y-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700" data-i18n="mobileNo">
+              Registered Mobile Number
+            </label>
+            <div class="relative">
+              <span class="absolute left-3.5 top-3 text-xs font-bold text-slate-400">+91</span>
+              <input type="tel" id="farmer-login-mobile" placeholder="98765 43210" maxlength="10" required class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-12 pr-3 text-xs font-mono font-bold text-slate-800 focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+            </div>
+          </div>
+
+          <!-- Farmer Aadhaar Number -->
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700" data-i18n="aadhaarLabel">
+                Farmer Aadhaar Number
+              </label>
+              <span class="text-[10px] text-emerald-700 font-semibold flex items-center gap-1">
+                <i class="fa-solid fa-shield-halved"></i> 12 Digits
+              </span>
+            </div>
+            <div class="relative">
+              <span class="absolute left-3.5 top-3 text-xs font-bold text-emerald-600">
+                <i class="fa-solid fa-fingerprint"></i>
+              </span>
+              <input type="text" id="farmer-login-aadhaar" placeholder="5432 8901 2345" maxlength="14" required class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-10 pr-3 text-xs font-mono font-bold text-slate-800 focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Cascading State, District, Center for Farmer -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="space-y-1">
+            <label class="block text-[11px] font-bold text-slate-700" data-i18n="selectState">State</label>
+            <select id="farmer-reg-state" onchange="handleFarmerRegStateChange()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:outline-none">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+          <div class="space-y-1">
+            <label class="block text-[11px] font-bold text-slate-700" data-i18n="selectDistrict">District</label>
+            <select id="farmer-reg-district" onchange="handleFarmerRegDistrictChange()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:outline-none">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+          <div class="space-y-1">
+            <label class="block text-[11px] font-bold text-slate-700" data-i18n="selectCenter">Local Mandi</label>
+            <select id="farmer-reg-center" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:outline-none">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+        </div>
+
+        <!-- OTP Input -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700" data-i18n="enterOtp">
+              Enter 6-Digit Verification OTP
+            </label>
+            <span class="text-[11px] text-emerald-700 font-semibold cursor-pointer hover:underline" onclick="showToast('Verification OTP 123456 dispatched via SMS', 'info')">
+              Resend OTP
+            </span>
+          </div>
+          <input type="password" id="farmer-login-otp" placeholder="123456" maxlength="6" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-mono font-bold tracking-widest text-slate-800 focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+        </div>
+
+        <button type="submit" class="w-full py-3.5 px-4 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl font-bold shadow-lg shadow-emerald-700/20 transition-all flex items-center justify-center gap-2 text-xs">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i> <span data-i18n="verifyLogin">Verify & Enter Dashboard</span>
+        </button>
+      </form>
+
+      <!-- FORM 2: STAFF LOGIN (State & Mandi Selection) -->
+      <form id="form-login-staff" onsubmit="handleStaffLogin(event)" class="hidden space-y-4">
+        <div class="bg-amber-50/80 p-4 rounded-2xl border border-amber-200 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2 text-amber-950 font-semibold">
+            <i class="fa-solid fa-id-badge text-amber-700"></i>
+            <span>Mandi Field Terminal Login</span>
+          </div>
+          <button type="button" onclick="demoFillStaffLogin()" class="px-3 py-1 bg-amber-700 hover:bg-amber-800 text-white rounded-lg font-bold text-[11px] transition-all shadow-sm">
+            <i class="fa-solid fa-bolt"></i> <span data-i18n="demoFillStaff">1-Click Fill: Mandi Staff</span>
+          </button>
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-700" data-i18n="staffId">
+            Staff Employee ID
+          </label>
+          <input type="text" id="staff-login-id" placeholder="STF-KRL-08" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-mono font-bold text-slate-800 uppercase focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+        </div>
+
+        <!-- Cascading State, District, Center for Staff -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="space-y-1">
+            <label class="block text-[11px] font-bold text-slate-700" data-i18n="selectState">State</label>
+            <select id="staff-login-state" onchange="handleStaffStateChange()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:outline-none">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+          <div class="space-y-1">
+            <label class="block text-[11px] font-bold text-slate-700" data-i18n="selectDistrict">District</label>
+            <select id="staff-login-district" onchange="handleStaffDistrictChange()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:outline-none">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+          <div class="space-y-1">
+            <label class="block text-[11px] font-bold text-slate-700" data-i18n="selectCenter">Assigned Center</label>
+            <select id="staff-login-center" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:outline-none">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-700" data-i18n="accessPin">
+            Security PIN
+          </label>
+          <input type="password" id="staff-login-pin" placeholder="7890" maxlength="4" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-mono font-bold tracking-widest text-slate-800 focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+        </div>
+
+        <button type="submit" class="w-full py-3.5 px-4 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl font-bold shadow-lg shadow-emerald-700/20 transition-all flex items-center justify-center gap-2 text-xs">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i> <span data-i18n="verifyLogin">Verify & Enter Dashboard</span>
+        </button>
+      </form>
+
+      <!-- FORM 3: ADMIN LOGIN -->
+      <form id="form-login-admin" onsubmit="handleAdminLogin(event)" class="hidden space-y-4">
+        <div class="bg-slate-100 p-4 rounded-2xl border border-slate-200 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2 text-slate-800 font-semibold">
+            <i class="fa-solid fa-shield-halved text-emerald-700"></i>
+            <span>Administrator Gateway (Mandi Traffic & Monitoring)</span>
+          </div>
+          <button type="button" onclick="demoFillAdminLogin()" class="px-3 py-1 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-bold text-[11px] transition-all shadow-sm">
+            <i class="fa-solid fa-bolt"></i> <span data-i18n="demoFillAdmin">1-Click Fill: Administrator</span>
+          </button>
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-700" data-i18n="adminEmail">
+            Official Admin Email
+          </label>
+          <input type="email" id="admin-login-email" placeholder="admin@krishiprocure.gov.in" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-bold text-slate-800 focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-700" data-i18n="adminPass">
+            Password
+          </label>
+          <input type="password" id="admin-login-password" placeholder="••••••••" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-bold text-slate-800 focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-700" data-i18n="twoFactorCode">
+            2FA Security Code
+          </label>
+          <input type="password" id="admin-login-2fa" placeholder="998877" maxlength="6" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-mono font-bold tracking-widest text-slate-800 focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+        </div>
+
+        <button type="submit" class="w-full py-3.5 px-4 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl font-bold shadow-lg shadow-emerald-700/20 transition-all flex items-center justify-center gap-2 text-xs">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i> <span data-i18n="verifyLogin">Verify & Enter Dashboard</span>
+        </button>
+      </form>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 6. MAIN DASHBOARD AREA (FARMER / STAFF / ADMIN)              -->
+  <!-- ============================================================ -->
+  <main id="main-app-section" class="hidden flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
+
+    <!-- ---------------------------------------------------------- -->
+    <!-- FARMER VIEW CONTAINER                                      -->
+    <!-- ---------------------------------------------------------- -->
+    <div id="farmer-view-container" class="space-y-8">
+      
+      <!-- Farmer Profile Header (Reflects typed name!) -->
+      <div class="bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-800 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+        <div class="absolute -right-12 -bottom-12 opacity-10 text-9xl">
+          <i class="fa-solid fa-wheat-awn"></i>
+        </div>
+        <div class="relative z-10 flex flex-wrap items-center justify-between gap-4">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="px-3 py-0.5 rounded-full text-xs font-bold bg-white/20 text-white border border-white/30 backdrop-blur-md">
+                PM-Kisan & e-NAM Verified
+              </span>
+              <span class="text-xs text-emerald-200">Aadhaar Linked (DBT Enabled)</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-black tracking-tight" id="farmer-profile-name">
+              Rameshwar Lal Sharma
+            </h2>
+            <p class="text-sm text-emerald-100 flex items-center gap-4 flex-wrap">
+              <span><i class="fa-solid fa-id-card"></i> Beneficiary ID: <span id="farmer-profile-id" class="font-mono font-bold">FARM-903</span></span>
+              <span id="farmer-profile-aadhaar"><i class="fa-solid fa-fingerprint"></i> Aadhaar: <span class="font-mono font-bold">5432 8901 2345</span></span>
+              <span id="farmer-profile-location"><i class="fa-solid fa-location-dot"></i> Yeshwanthpur Main APMC Yard, Bengaluru Urban (Karnataka)</span>
+              <span><i class="fa-solid fa-chart-area"></i> Land: 6.5 Acres</span>
+            </p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl text-right">
+            <span class="text-[11px] uppercase tracking-wider text-emerald-200 font-semibold">Registered Bank (DBT)</span>
+            <div class="text-sm font-bold mt-0.5">State Bank of India</div>
+            <div class="text-xs font-mono text-emerald-100">A/C: XXXXXXXX4819 | IFSC: SBIN0001234</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Queue, Probable AI Waiting Time & QR Pass Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Card 1: Token & Proper Scannable QR Gate Pass -->
+        <div id="farmer-token-card" class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-500" data-i18n="tokenPassTitle">
+                Official APMC Token & Gate Pass
+              </span>
+              <span id="farmer-gate-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 flex items-center gap-1.5">
+                <i class="fa-solid fa-clock"></i> Pending Gate Arrival
+              </span>
+            </div>
+
+            <!-- Standalone QR Code Container -->
+            <div class="mt-4 flex items-center gap-4">
+              <div id="farmer-qr-canvas" class="p-2 bg-slate-50 rounded-2xl border border-slate-200 flex-shrink-0 flex items-center justify-center">
+                <!-- Dynamically rendered by renderProperQr -->
+              </div>
+              <div class="space-y-1">
+                <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">Token Number</span>
+                <div id="farmer-token-id-display" class="text-2xl font-mono font-black text-emerald-900">--</div>
+                <div class="text-xs font-semibold text-slate-700" id="farmer-token-crop-display">No Slot Booked</div>
+                <div class="text-xs text-slate-500" id="farmer-token-bags-display">-- Quintals</div>
+              </div>
+            </div>
+
+            <!-- Token Details List -->
+            <div class="mt-5 space-y-2 text-xs bg-slate-50 p-4 rounded-2xl border border-slate-100">
+              <div class="flex justify-between">
+                <span class="text-slate-500">Date:</span>
+                <span class="font-bold text-slate-800" id="farmer-token-date-display">2026-09-10</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-500">Shift Window:</span>
+                <span class="font-bold text-slate-800 truncate max-w-[170px]" id="farmer-token-time-display">Shift 1 (07:00 AM – 10:00 AM)</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-500">Center:</span>
+                <span class="font-bold text-slate-800 truncate max-w-[170px]" id="farmer-token-centre-display">Yeshwanthpur Main APMC Yard</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-500">Vehicle:</span>
+                <span class="font-mono font-bold text-slate-800" id="farmer-token-vehicle-display">HR-05-E-9022</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions: Gate Check-in, SMS to Center, Print -->
+          <div class="mt-5 pt-3 border-t border-slate-100 flex flex-col gap-2">
+            <div class="flex items-center gap-2">
+              <button id="farmer-self-checkin-btn" class="flex-1 py-2.5 px-3 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition-all shadow flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-qrcode"></i> Check-in at Gate Counter
+              </button>
+              <button onclick="printProcurementSlip(store.get('activeTokenId'))" class="p-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors" title="Print Gate Pass">
+                <i class="fa-solid fa-print"></i>
+              </button>
+            </div>
+            <button onclick="dispatchSmsToCenter(store.get('activeTokenId'))" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition-colors flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-paper-plane text-emerald-700"></i> Dispatch SMS to Booking Center & Phone
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 2: Live Queue Board & PROBABLE AI WAITING TIME ENGINE -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-500">
+                Live Mandi Queue & AI Engine
+              </span>
+              <span class="flex items-center gap-1.5 text-xs text-emerald-600 font-bold">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span> Counter 1 Active
+              </span>
+            </div>
+
+            <!-- Big Live Queue Board -->
+            <div id="now-serving-banner" class="mt-4 p-5 bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl text-white text-center shadow-lg transition-transform">
+              <span class="text-[11px] uppercase tracking-widest text-emerald-400 font-bold" data-i18n="nowServingToken">
+                Now Serving Token
+              </span>
+              <div id="farmer-now-serving" class="text-3xl sm:text-4xl font-mono font-black text-white mt-1">
+                KS-2026-0842
+              </div>
+              <p class="text-xs text-slate-300 mt-1 font-medium">Proceed to Weighbridge & Quality Desk</p>
+            </div>
+
+            <!-- PROBABLE AI WAITING TIME PREDICTOR (SIH-26032) -->
+            <div class="mt-4 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs space-y-2.5">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-emerald-950 flex items-center gap-1.5">
+                  <i class="fa-solid fa-brain text-emerald-700"></i> Probable AI Waiting Time
+                </span>
+                <span id="ai-confidence-pill" class="px-2 py-0.5 rounded-full bg-emerald-200 text-emerald-900 text-[10px] font-bold">
+                  AI Accuracy: 96%
+                </span>
+              </div>
+              <div class="flex items-baseline justify-between">
+                <div class="text-2xl font-black text-emerald-900" id="ai-estimated-minutes">
+                  18 Minutes
+                </div>
+                <div class="text-[11px] text-emerald-700 font-semibold" id="ai-queue-position-display">
+                  #1 trolley ahead of you
+                </div>
+              </div>
+
+              <!-- Quick Metrics Grid -->
+              <div class="pt-2 border-t border-emerald-200/80 grid grid-cols-2 gap-2 text-[11px] text-emerald-800">
+                <div>• Weighbridge: <span id="ai-weighbridge-eta" class="font-bold">8 mins</span></div>
+                <div>• Lab Quality: <span id="ai-quality-eta" class="font-bold">5 mins</span></div>
+                <div>• Mandi Flow: <span id="ai-traffic-eta" class="font-bold">Normal (+2m)</span></div>
+                <div>• Gate Velocity: <span class="font-bold">8 trolleys/hr</span></div>
+              </div>
+
+              <!-- TRANSPARENT AI MATHEMATICAL CALCULATION BREAKDOWN (SIH-26032) -->
+              <div class="mt-2 pt-2 border-t border-emerald-200/90 bg-white/90 p-3 rounded-xl border border-emerald-100 space-y-1.5 font-sans shadow-sm">
+                <div class="flex items-center justify-between text-[11px] font-extrabold text-slate-800">
+                  <span class="flex items-center gap-1.5 text-emerald-900">
+                    <i class="fa-solid fa-calculator text-emerald-600"></i> Mathematical Breakdown:
+                  </span>
+                  <span class="font-mono text-[10px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-200">
+                    T = (N × 8m) + 5m + T<sub>delay</sub>
+                  </span>
+                </div>
+                <div class="text-[11px] text-slate-600 space-y-1 font-mono">
+                  <div class="flex justify-between items-center">
+                    <span>1. Weighbridge Queue:</span>
+                    <span id="ai-calc-weighbridge-step" class="font-bold text-slate-800">1 trolley × 8 min = 8m</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span>2. AGMARKNET Moisture Lab:</span>
+                    <span id="ai-calc-quality-step" class="font-bold text-slate-800">Standard Assay = +5m</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span>3. Mandi Road / Gate Traffic:</span>
+                    <span id="ai-calc-traffic-step" class="font-bold text-slate-800">Smooth Approach = +2m</span>
+                  </div>
+                </div>
+                <div id="ai-calc-total-step" class="mt-1 pt-1.5 border-t border-emerald-200 text-right font-mono text-xs font-black text-emerald-900">
+                  Total Estimated Wait: 8m + 5m + 2m = 15 Minutes
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Read Aloud Voice Button -->
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <button onclick="readAloudQueueStatus()" class="w-full py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2">
+              <i class="fa-solid fa-volume-high text-emerald-700"></i> Read Queue Status Aloud (Voice Alert)
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3: Payment Status Card -->
+        <div id="farmer-payment-status-card" class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+          <!-- Dynamically populated by renderPaymentStatusBox -->
+        </div>
+
+      </div>
+
+      <!-- Step Timeline Progress -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200">
+        <div class="mb-6 flex items-center justify-between">
+          <div>
+            <h3 class="text-base font-bold text-slate-900">Procurement & Inspection Lifecycle</h3>
+            <p class="text-xs text-slate-500">Live progress across APMC Mandi stages</p>
+          </div>
+          <span class="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+            MSP Procurement Cycle 2026-27
+          </span>
+        </div>
+        <div id="procurement-timeline-steps" class="flex items-center justify-between gap-2 overflow-x-auto py-2">
+          <!-- Populated by renderProgressTimeline -->
+        </div>
+      </div>
+
+      <!-- SLOT BOOKING WIZARD -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
+        <div class="border-b border-slate-100 pb-4 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h3 class="text-lg font-black text-slate-900 flex items-center gap-2" data-i18n="bookSlotTitle">
+              <i class="fa-solid fa-calendar-plus text-emerald-600"></i> Book Official Mandi Slot
+            </h3>
+            <p class="text-xs text-slate-500 mt-1">Select your State, District, and Primary MSP Procurement Center from official directories</p>
+          </div>
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800">
+            All-India Directory Loaded
+          </span>
+        </div>
+
+        <form id="farmer-slot-booking-form" class="space-y-6">
+          
+          <!-- CASCADING SELECTORS: STATE -> DISTRICT -> CENTER -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
+            <!-- 1. State -->
+            <div class="space-y-1.5">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700" data-i18n="slotSelectState">
+                1. Select State / UT
+              </label>
+              <select id="book-state-select" onchange="handleBookingStateChange()" class="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs font-bold text-slate-800 focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+                <!-- Populated dynamically from MSP_STATES_DATA -->
+              </select>
+            </div>
+
+            <!-- 2. District -->
+            <div class="space-y-1.5">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700" data-i18n="slotSelectDistrict">
+                2. Select District
+              </label>
+              <select id="book-district-select" onchange="handleBookingDistrictChange()" class="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs font-bold text-slate-800 focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+
+            <!-- 3. Primary MSP Center -->
+            <div class="space-y-1.5">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700" data-i18n="slotSelectCenter">
+                3. Primary MSP Procurement Center
+              </label>
+              <select id="book-centre-select" onchange="handleBookingCenterChange()" class="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs font-bold text-slate-800 focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+                <!-- Populated dynamically from PDF dataset -->
+              </select>
+            </div>
+          </div>
+
+          <!-- PROPER OPERATIONAL SHIFTS -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700" data-i18n="slotTimeShift">
+                4. Operational Time Slot (Shifts)
+              </label>
+              <span class="text-[11px] text-slate-500">Live Shift Capacity Monitored</span>
+            </div>
+
+            <div id="booking-shifts-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <!-- Dynamically populated by renderBookingShiftCards() based on selected center, date, and live deduced slots -->
+            </div>
+          </div>
+
+          <!-- Date, Crop, Quantity, Vehicle -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="space-y-1.5">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-600" data-i18n="slotDate">
+                Reporting Date
+              </label>
+              <input type="date" id="book-date-input" onchange="handleBookingDateChange()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-medium text-slate-800 focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+            </div>
+
+            <div class="space-y-1.5">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-600" data-i18n="cropType">
+                Crop Type
+              </label>
+              <select id="book-crop-select" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-medium text-slate-800 focus:ring-2 focus:ring-emerald-600 focus:outline-none" required>
+                <option value="" disabled selected>-- Select Crop / फसल चुनें --</option>
+              </select>
+              <div id="crop-msp-banner" class="hidden mt-2 p-2 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 font-semibold flex items-center justify-between">
+                <span id="crop-msp-rate-text">MSP: --</span>
+                <span id="crop-moisture-text" class="text-[11px] text-emerald-600">Max Moisture: --</span>
+              </div>
+            </div>
+
+            <div class="space-y-1.5">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-600" data-i18n="quantity">
+                Estimated Quintals
+              </label>
+              <input type="number" id="book-bags-input" placeholder="Enter quintals (e.g. 50)" min="5" max="500" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-medium text-slate-800 focus:ring-2 focus:ring-emerald-600 focus:outline-none" required />
+            </div>
+
+            <div class="space-y-1.5">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-600" data-i18n="vehicleNumber">
+                Vehicle Number / Trolley
+              </label>
+              <input type="text" id="book-vehicle-input" placeholder="e.g. KA-04-AB-1234" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-mono font-bold text-slate-800 uppercase focus:ring-2 focus:ring-emerald-600 focus:outline-none" required />
+            </div>
+          </div>
+
+          <!-- Submit Buttons -->
+          <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
+            <p class="text-xs text-slate-500">
+              <i class="fa-solid fa-circle-check text-emerald-600"></i> QR Token Pass is valid for gate entry during the scheduled shift.
+            </p>
+            <button type="submit" class="py-3.5 px-6 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl font-bold shadow-lg shadow-emerald-700/20 transition-all flex items-center gap-2 text-xs">
+              <i class="fa-solid fa-qrcode"></i> <span data-i18n="confirmBookBtn">Confirm & Generate Scannable QR Pass</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- ---------------------------------------------------------- -->
+    <!-- STAFF / APMC OFFICER VIEW CONTAINER                        -->
+    <!-- ---------------------------------------------------------- -->
+    <div id="staff-view-container" class="hidden space-y-8">
+      
+      <!-- Staff Terminal Header -->
+      <div class="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+            APMC Field Terminal Desk
+          </span>
+          <h2 class="text-2xl font-black mt-2">Mandi Inspection, Weighbridge & DBT Terminal</h2>
+          <p class="text-xs text-slate-400 mt-1" id="staff-station-badge">
+            Officer: Rajesh Sharma (STF-KRL-08) | Center: Yeshwanthpur Main APMC Yard
+          </p>
+        </div>
+
+        <!-- QR Code / Token Fast Scanner -->
+        <div class="flex items-center gap-2 bg-slate-800 p-1.5 rounded-2xl border border-slate-700">
+          <input type="text" id="staff-token-search-input" placeholder="Scan QR Pass / Enter Token (e.g. KS-2026-0843)" class="bg-transparent px-3 py-2 text-xs font-mono text-white placeholder-slate-500 focus:outline-none w-72" />
+          <button id="staff-scan-token-btn" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5">
+            <i class="fa-solid fa-barcode"></i> Lookup
+          </button>
+        </div>
+      </div>
+
+      <!-- Active Farmer Inspection Station -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
+        <div class="border-b border-slate-100 pb-4 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">Inspection & Payout Desk</span>
+            <h3 class="text-xl font-black text-slate-900 mt-0.5">
+              Serving: <span id="staff-serving-token" class="font-mono text-emerald-800">KS-2026-0842</span>
+            </h3>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="verifyFarmerIdentity(store.get('currentServingTokenId'))" class="px-3.5 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5">
+              <i class="fa-solid fa-user-check"></i> <span>Verify Aadhaar & Land Patta</span>
+            </button>
+            <button onclick="openSmsModal(store.get('currentServingTokenId'))" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5">
+              <i class="fa-solid fa-message"></i> SMS Alert
+            </button>
+          </div>
+        </div>
+
+        <!-- Farmer Profile Snapshot -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 text-xs">
+          <div>
+            <span class="text-slate-400 uppercase text-[10px] font-bold">Farmer Name</span>
+            <div id="staff-serving-farmer" class="font-bold text-slate-800 mt-0.5">Sunil Baburao Patil</div>
+          </div>
+          <div>
+            <span class="text-slate-400 uppercase text-[10px] font-bold">Aadhaar & Patta</span>
+            <div id="staff-serving-aadhaar" class="font-mono font-bold text-slate-800 mt-0.5">XXXX-XXXX-6172</div>
+            <div id="staff-serving-patta" class="text-[11px] text-slate-500">Gat No. 88 (5.0 Acres)</div>
+          </div>
+          <div>
+            <span class="text-slate-400 uppercase text-[10px] font-bold">Commodity</span>
+            <div id="staff-serving-crop" class="font-bold text-slate-800 mt-0.5">Gram / Chana (JG-11)</div>
+          </div>
+          <div>
+            <span class="text-slate-400 uppercase text-[10px] font-bold">Vehicle No.</span>
+            <div id="staff-serving-vehicle" class="font-mono font-bold text-slate-800 mt-0.5">MH-15-CP-8832</div>
+          </div>
+        </div>
+
+        <!-- 2-Column: Weighbridge & Quality Testing -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          
+          <!-- Station 1: Weighbridge -->
+          <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+              <h4 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <i class="fa-solid fa-scale-balanced text-emerald-600"></i> <span data-i18n="weighbridgeTitle">Weighbridge Station (Dharam Kanta)</span>
+              </h4>
+              <span class="text-[10px] font-mono bg-slate-200 px-2 py-0.5 rounded text-slate-700 font-bold">SCALE-DIGI-01</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div class="space-y-1">
+                <label class="text-[11px] font-bold text-slate-600" data-i18n="grossWeight">Gross Weight (Qtl)</label>
+                <input type="number" step="0.1" id="staff-gross-weight" value="55.0" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 text-xs font-mono font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-600" />
+              </div>
+              <div class="space-y-1">
+                <label class="text-[11px] font-bold text-slate-600" data-i18n="tareWeight">Tare Weight (Qtl)</label>
+                <input type="number" step="0.1" id="staff-tare-weight" value="20.0" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 text-xs font-mono font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-600" />
+              </div>
+            </div>
+
+            <button id="staff-save-weigh-btn" class="w-full py-2.5 px-4 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-floppy-disk"></i> Record Weighbridge Weights
+            </button>
+          </div>
+
+          <!-- Station 2: Quality Lab -->
+          <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+              <h4 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <i class="fa-solid fa-microscope text-amber-600"></i> <span data-i18n="qualityLabTitle">Quality Assessment Lab</span>
+              </h4>
+              <span class="text-[10px] font-mono bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold">AGMARKNET</span>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+              <div class="space-y-1">
+                <label class="text-[11px] font-bold text-slate-600" data-i18n="moisturePercent">Moisture (%)</label>
+                <input type="number" step="0.1" id="staff-moisture-input" value="9.5" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 text-xs font-mono font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-600" />
+              </div>
+              <div class="space-y-1">
+                <label class="text-[11px] font-bold text-slate-600" data-i18n="foreignMatter">Foreign (%)</label>
+                <input type="number" step="0.1" id="staff-foreign-input" value="0.6" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 text-xs font-mono font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-600" />
+              </div>
+              <div class="space-y-1">
+                <label class="text-[11px] font-bold text-slate-600" data-i18n="brokenGrain">Broken (%)</label>
+                <input type="number" step="0.1" id="staff-broken-input" value="1.0" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 text-xs font-mono font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-600" />
+              </div>
+            </div>
+
+            <button id="staff-submit-lab-btn" class="w-full py-2.5 px-4 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-certificate"></i> Certify Quality & Calculate MSP
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Station 3: DBT Payment Dispatch Desk -->
+        <div class="p-6 bg-gradient-to-r from-emerald-50 via-teal-50 to-slate-50 rounded-2xl border border-emerald-200 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">Aadhaar Payment Bridge (APBS / PFMS)</span>
+            <h4 class="text-base font-black text-slate-900 mt-0.5">Authorize Procurement & Dispatch DBT Payment</h4>
+            <p class="text-xs text-slate-600">Disburse MSP directly into farmer's bank account with transaction UTR</p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button id="staff-payout-btn" class="py-2.5 px-4 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5">
+              <i class="fa-solid fa-money-bill-wave"></i> Dispatch DBT (Paid)
+            </button>
+            <button id="staff-payout-pending-btn" class="py-2.5 px-3 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-sm flex items-center gap-1">
+              Mark Pending
+            </button>
+            <button id="staff-payout-failed-btn" class="py-2.5 px-3 bg-rose-700 hover:bg-rose-800 text-white rounded-xl text-xs font-semibold shadow-sm flex items-center gap-1">
+              Simulate Failed
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Live Mandi Queue Roster Table (Only farmers from this specific Mandi & Region!) -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-base font-bold text-slate-900">
+              Assigned Mandi Queue: <span id="staff-mandi-name-title" class="text-emerald-800 font-mono">Yeshwanthpur Main APMC Yard</span>
+            </h3>
+            <p class="text-xs text-slate-500">Farmers registered & scheduled for this specific procurement center</p>
+          </div>
+          <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+            Filtered by Region & Mandi
+          </span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-slate-200 text-[11px] font-bold uppercase text-slate-500">
+                <th class="p-3">Token</th>
+                <th class="p-3">Farmer Name</th>
+                <th class="p-3">Crop / Volume</th>
+                <th class="p-3">Status</th>
+                <th class="p-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="staff-queue-table-body">
+              <!-- Populated dynamically: Only farmers matching staff's assigned Mandi -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ---------------------------------------------------------- -->
+    <!-- ADMIN COMMAND DASHBOARD CONTAINER                          -->
+    <!-- ---------------------------------------------------------- -->
+    <div id="admin-view-container" class="hidden space-y-8">
+      
+      <!-- Top Metrics -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between text-slate-500 text-xs font-bold uppercase tracking-wider">
+            <span>Farmers Served</span>
+            <i class="fa-solid fa-users text-emerald-600 text-base"></i>
+          </div>
+          <div id="admin-metric-farmers" class="text-3xl font-black text-slate-900 mt-2">128</div>
+          <p class="text-[11px] text-emerald-600 font-semibold mt-1"><i class="fa-solid fa-arrow-trend-up"></i> +12% from yesterday</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between text-slate-500 text-xs font-bold uppercase tracking-wider">
+            <span>Total Procured</span>
+            <i class="fa-solid fa-truck text-emerald-600 text-base"></i>
+          </div>
+          <div id="admin-metric-tonnes" class="text-3xl font-black text-slate-900 mt-2">340.5 MT</div>
+          <p class="text-[11px] text-slate-500 mt-1">Across Regulated Mandis</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between text-slate-500 text-xs font-bold uppercase tracking-wider">
+            <span>MSP Disbursed</span>
+            <i class="fa-solid fa-indian-rupee-sign text-emerald-600 text-base"></i>
+          </div>
+          <div id="admin-metric-disbursed" class="text-3xl font-black text-slate-900 mt-2">₹78.2 Lakh</div>
+          <p class="text-[11px] text-emerald-600 font-semibold mt-1">Direct Benefit Settled</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between text-slate-500 text-xs font-bold uppercase tracking-wider">
+            <span>Operational States</span>
+            <i class="fa-solid fa-map-location-dot text-emerald-600 text-base"></i>
+          </div>
+          <div id="admin-metric-centres" class="text-3xl font-black text-slate-900 mt-2">28 States & UTs</div>
+          <p class="text-[11px] text-slate-500 mt-1">Directory Verified</p>
+        </div>
+      </div>
+
+      <!-- ADMIN MANDI TRAFFIC & ROAD ADVISORY DECLARATION PANEL (SIH-26032) -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
+              <h3 class="text-base font-bold text-slate-900" data-i18n="adminDeclareTraffic">Mandi Traffic & Road Congestion Control Center</h3>
+            </div>
+            <p class="text-xs text-slate-500 mt-0.5">Authoritative traffic control: Broadcast live vehicular flow, congestion levels, and gate advisories across any Mandi in India</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-satellite-dish text-amber-700"></i> Full Admin Authority
+          </span>
+        </div>
+
+        <!-- Cascading State, District, APMC Center Selectors for Admin -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="space-y-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">1. State / UT</label>
+            <select id="admin-traffic-state-select" onchange="handleAdminTrafficStateChange()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:outline-none">
+            </select>
+          </div>
+
+          <div class="space-y-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">2. District</label>
+            <select id="admin-traffic-district-select" onchange="handleAdminTrafficDistrictChange()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:outline-none">
+            </select>
+          </div>
+
+          <div class="space-y-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">3. Target APMC Mandi Center</label>
+            <select id="admin-traffic-mandi-select" onchange="handleAdminTrafficMandiChange()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:outline-none">
+            </select>
+          </div>
+        </div>
+
+        <!-- Current Live Traffic Status for Selected Mandi -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div id="admin-traffic-active-icon" class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-base">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-slate-900" id="admin-traffic-current-mandi">Yeshwanthpur Main APMC Yard</span>
+                <span id="admin-traffic-current-level-pill" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
+                  Smooth Flow
+                </span>
+              </div>
+              <p class="text-xs text-slate-600 mt-0.5" id="admin-traffic-current-msg">Approach roads clear. Weighbridge operational at standard throughput.</p>
+              <div class="text-[10px] text-slate-400 font-mono mt-0.5" id="admin-traffic-current-time">Last Updated: Just now</div>
+            </div>
+          </div>
+          <button onclick="handleAdminResetTraffic()" class="py-2 px-3.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
+            <i class="fa-solid fa-rotate-left"></i> Reset to Normal Flow
+          </button>
+        </div>
+
+        <!-- Quick 1-Click Preset Broadcast Templates -->
+        <div class="space-y-1.5">
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">1-Click Quick Advisory Presets</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+            <button onclick="applyTrafficPreset('smooth', 'Gates open and approach roads clear. Electronic weighbridges operating at normal throughput with zero delays.')" 
+              class="p-2.5 text-left bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-xl text-xs transition cursor-pointer">
+              <span class="font-bold text-emerald-800 flex items-center gap-1"><i class="fa-solid fa-circle text-[8px]"></i> Normal Flow (Green)</span>
+              <span class="text-[10px] text-slate-500 block truncate">Zero delays, gates open</span>
+            </button>
+            <button onclick="applyTrafficPreset('moderate', 'Moderate queue at Mandi Gate 1. Approach road speed slowed. Estimated weighbridge intake delay: 15-25 minutes.')" 
+              class="p-2.5 text-left bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-xl text-xs transition cursor-pointer">
+              <span class="font-bold text-amber-800 flex items-center gap-1"><i class="fa-solid fa-circle text-[8px]"></i> Minor Queue (+20m)</span>
+              <span class="text-[10px] text-slate-500 block truncate">15-25 min gate turnaround</span>
+            </button>
+            <button onclick="applyTrafficPreset('congested', 'Severe vehicular bottleneck on Main APMC Bypass road. Heavy tractor lineup. Arriving trolleys diverted to North Ring Gate 3.')" 
+              class="p-2.5 text-left bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl text-xs transition cursor-pointer">
+              <span class="font-bold text-rose-800 flex items-center gap-1"><i class="fa-solid fa-circle text-[8px]"></i> Heavy Congestion (Red)</span>
+              <span class="text-[10px] text-slate-500 block truncate">Diversion active to Gate 3</span>
+            </button>
+            <button onclick="applyTrafficPreset('moderate', 'Scheduled calibration at Dharam Kanta Weighbridge scale 2. Expect temporary 20-minute inspection pause.')" 
+              class="p-2.5 text-left bg-purple-50 hover:bg-purple-100 border border-purple-200 rounded-xl text-xs transition cursor-pointer">
+              <span class="font-bold text-purple-800 flex items-center gap-1"><i class="fa-solid fa-circle text-[8px]"></i> Scale Calibration</span>
+              <span class="text-[10px] text-slate-500 block truncate">Temporary weighbridge pause</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+          <div class="space-y-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">Congestion Level</label>
+            <select id="admin-traffic-level-select" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-600">
+              <option value="smooth">🟢 Smooth Flow (Green - Normal throughput)</option>
+              <option value="moderate">🟡 Moderate Queue (Yellow - 15-25m gate wait)</option>
+              <option value="congested">🔴 Heavy Congestion (Red - Diversion active)</option>
+            </select>
+          </div>
+
+          <div class="space-y-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">Broadcast Advisory Text</label>
+            <input type="text" id="admin-traffic-advisory-input" placeholder="Type custom advisory message to broadcast to arriving farmers..." class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-600" />
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+          <span class="text-[11px] text-slate-500">
+            <i class="fa-solid fa-bullhorn text-emerald-600 mr-1"></i> Broadcast updates immediately reach all farmers registered at this Mandi
+          </span>
+          <button onclick="handleAdminBroadcastTraffic()" class="py-2.5 px-6 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition-all shadow flex items-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-satellite-dish"></i> <span data-i18n="broadcastAdvisoryBtn">Broadcast Live Mandi Advisory</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- MSP Center Shift Quotas & Slot Capacity Manager -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+              <h3 class="text-base font-bold text-slate-900">MSP Center Slot Quota & Shift Capacity Manager</h3>
+            </div>
+            <p class="text-xs text-slate-500 mt-0.5">Configure and add custom operational intake capacities independently for every Mandi / MSP Center across India</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
+              <i class="fa-solid fa-sliders mr-1"></i> Per-Center Quotas
+            </span>
+          </div>
+        </div>
+
+        <!-- Cascading Selectors for Quota Management -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="space-y-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">1. State / UT</label>
+            <select id="admin-quota-state-select" onchange="handleAdminQuotaStateChange()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:outline-none">
+            </select>
+          </div>
+
+          <div class="space-y-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">2. District</label>
+            <select id="admin-quota-district-select" onchange="handleAdminQuotaDistrictChange()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:outline-none">
+            </select>
+          </div>
+
+          <div class="space-y-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">3. APMC / MSP Center</label>
+            <select id="admin-quota-mandi-select" onchange="handleAdminQuotaMandiChange()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:outline-none">
+            </select>
+          </div>
+        </div>
+
+        <!-- Current Center Active Info Banner -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-800 text-white flex items-center justify-center font-bold text-sm">
+              <i class="fa-solid fa-warehouse"></i>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-900" id="admin-quota-center-display">Yeshwanthpur Main APMC Yard</div>
+              <div class="text-[11px] text-slate-500" id="admin-quota-location-display">Karnataka &bull; Bengaluru Urban</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="handleAdminResetDefaultQuotas()" class="py-2 px-3.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+              <i class="fa-solid fa-arrow-rotate-left"></i> Reset Defaults
+            </button>
+            <button onclick="handleAdminSaveAllQuotas()" class="py-2 px-5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-check"></i> Save Quotas for this Center
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 Operational Shift Quota Edit Cards -->
+        <div id="admin-quota-shifts-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Populated dynamically by js/app.js -->
+        </div>
+
+        <!-- Configured Centers Summary Pill Bar -->
+        <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-circle-info text-emerald-600"></i>
+            <span>Each MSP center maintains its own independent shift slot quota. Changes take effect immediately.</span>
+          </div>
+          <span id="admin-quota-configured-count" class="font-bold text-slate-700">1 Center Custom Configured</span>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+            <h3 class="text-sm font-bold text-slate-900">Procurement Volume by Commodity (Quintals)</h3>
+            <span class="text-xs text-slate-400 font-mono">LIVE_ANALYTICS</span>
+          </div>
+          <div class="h-64 flex items-center justify-center">
+            <canvas id="admin-crop-chart"></canvas>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+            <h3 class="text-sm font-bold text-slate-900">Payment Settlement Status (DBT Transactions)</h3>
+            <button onclick="exportProcurementCsv()" class="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1">
+              <i class="fa-solid fa-file-excel"></i> Export CSV
+            </button>
+          </div>
+          <div class="h-64 flex items-center justify-center">
+            <canvas id="admin-payment-chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Waiting List Queue Table -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-base font-bold text-slate-900">Waiting List & Capacity Spillover Queue</h3>
+            <p class="text-xs text-slate-500">Farmers auto-queued when operational shifts reached max capacity</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
+            Auto-Promote Active
+          </span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-slate-200 text-[11px] font-bold uppercase text-slate-500">
+                <th class="p-3">Wait Token</th>
+                <th class="p-3">Farmer Name</th>
+                <th class="p-3">Mobile</th>
+                <th class="p-3">Mandi / Crop</th>
+                <th class="p-3">Queued At</th>
+                <th class="p-3">Status</th>
+              </tr>
+            </thead>
+            <tbody id="admin-waiting-table-body">
+              <!-- Populated dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ============================================================ -->
+  <!-- 7. WORKFLOW ARCHITECTURE MODAL (Visualizes user flowchart)  -->
+  <!-- ============================================================ -->
+  <div id="workflow-modal" class="hidden fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-slate-200">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+        <h3 class="text-lg font-black text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-diagram-project text-emerald-600"></i> Agricultural Procurement Lifecycle Flow
+        </h3>
+        <button onclick="document.getElementById('workflow-modal').classList.add('hidden')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="my-6 space-y-3 text-xs font-mono bg-slate-900 text-emerald-400 p-5 rounded-2xl overflow-x-auto leading-relaxed">
+        <div>START ➔ SELECT LANGUAGE ➔ LOGIN / REGISTER ➔ SELECT USER ROLE</div>
+        <div class="text-amber-400">  ├─ FARMER (Typed Farmer Name + Mobile + OTP Verification)</div>
+        <div class="text-amber-400">  ├─ STAFF  (State/Center Selection + Security PIN)</div>
+        <div class="text-amber-400">  └─ ADMIN  (Official Email + Password + 2FA OTP)</div>
+        <div>AUTHORIZATION ➔ Is User Authorized?</div>
+        <div>  ├─ [NO]  ➔ ACCESS DENIED SCREEN</div>
+        <div>  └─ [YES] ➔ ROLE DASHBOARD</div>
+        <div class="text-teal-300">    ├─ FARMER: State ➔ District ➔ MSP Center ➔ Date ➔ Proper Shifts ➔ Check Slots</div>
+        <div class="text-teal-300">    │    ├─ [NO]  ➔ Waiting List ➔ Notify User</div>
+        <div class="text-teal-300">    │    └─ [YES] ➔ Book Slot ➔ Scannable QR Pass ➔ Gate Check-In</div>
+        <div class="text-teal-300">    │         ➔ Probable AI Wait Time ➔ Live Queue ➔ Turn ➔ Crop/Identity Check</div>
+        <div class="text-teal-300">    │         ➔ Weighbridge (Gross-Tare) ➔ Quality Lab ➔ Accepted ➔ DBT Payout</div>
+        <div class="text-teal-300">    │         ➔ Status (PAID / PENDING / FAILED with Retry) ➔ Report ➔ END</div>
+        <div class="text-purple-300">    └─ ADMIN/STAFF: Manage Mandis ➔ Declare Traffic ➔ Live Queue ➔ Payments ➔ CSV Reports</div>
+      </div>
+
+      <p class="text-xs text-slate-600 leading-relaxed">
+        Krishi Seva implements every node of the flowchart, including AI-driven turnaround estimates, admin traffic broadcasts, SMS dispatches, and region-locked mandi queues for SIH Problem Statement 26032.
+      </p>
+
+      <div class="mt-6 text-right">
+        <button onclick="document.getElementById('workflow-modal').classList.add('hidden')" class="px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold">
+          Close Flow Map
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 8. SMS ALERT PREVIEW MODAL                                   -->
+  <!-- ============================================================ -->
+  <div id="sms-preview-modal" class="hidden fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-mobile-screen-button text-emerald-600"></i> Mandi SMS Dispatch (TRAI Compliant)
+        </h3>
+        <button onclick="closeSmsModal()" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 text-xs">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div id="sms-preview-body"></div>
+      <button onclick="closeSmsModal()" class="w-full py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold">
+        Dismiss
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 8B. APPLICATION INSTALLATION MODAL                           -->
+  <!-- ============================================================ -->
+  <div id="pwa-install-modal" class="hidden fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-emerald-700 flex items-center justify-center text-white text-lg shadow-sm">
+            <i class="fa-solid fa-cloud-arrow-down"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-slate-900">Install Krishi Seva Application</h3>
+            <p class="text-[11px] text-slate-500">Standalone Desktop & Mobile App • Offline Ready</p>
+          </div>
+        </div>
+        <button onclick="document.getElementById('pwa-install-modal').classList.add('hidden')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 text-xs transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs text-slate-700">
+        <!-- Native Windows App Option -->
+        <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-slate-900 flex items-center gap-2">
+              <i class="fa-brands fa-windows text-sky-600 text-base"></i> Windows Desktop App
+            </span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Installed</span>
+          </div>
+          <p class="text-slate-500 text-[11px]">
+            Launch Krishi Seva in a dedicated chromeless desktop application window with no browser tabs or address bar:
+          </p>
+          <div class="flex items-center gap-2 pt-1">
+            <a href="javascript:void(0)" onclick="handleTriggerPwaInstall()" class="flex-1 py-2 px-3 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-center font-bold transition flex items-center justify-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-circle-down"></i> 1-Click Install in Browser
+            </a>
+          </div>
+        </div>
+
+        <!-- Android / Mobile PWA Option -->
+        <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-slate-900 flex items-center gap-2">
+              <i class="fa-brands fa-android text-emerald-600 text-base"></i> Mobile / Tablet App
+            </span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-100 text-sky-800">PWA</span>
+          </div>
+          <p class="text-slate-500 text-[11px]">
+            Tap your browser menu (<i class="fa-solid fa-ellipsis-vertical"></i>) and select <b>"Install App"</b> or <b>"Add to Home screen"</b> to run as a full-screen mobile app in the mandi yard.
+          </p>
+        </div>
+
+        <!-- Offline Guarantee -->
+        <div class="flex items-center gap-2 text-[11px] text-emerald-700 font-semibold bg-emerald-50/80 p-2.5 rounded-xl border border-emerald-100">
+          <i class="fa-solid fa-shield-halved text-base"></i>
+          <span>Equipped with Service Worker for 100% offline data resilience.</span>
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <button onclick="document.getElementById('pwa-install-modal').classList.add('hidden')" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 9. HIDDEN PRINTABLE OFFICIAL SLIP CONTAINER                  -->
+  <!-- ============================================================ -->
+  <div id="printable-receipt-area" class="hidden"></div>
+
+  <!-- ============================================================ -->
+  <!-- 10. TOAST CONTAINER                                          -->
+  <!-- ============================================================ -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+  <!-- ============================================================ -->
+  <!-- 11. MAIN CONTROLLER LOGIC                                    -->
+  <!-- ============================================================ -->
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+﻿{
+  name: Krishi Seva - Mandi Queue & MSP Procurement,
+  short_name: Krishi Seva,
+  description: Smart India Hackathon 26032 - Intelligent Mandi Queue, Slot Booking & MSP Procurement Optimization,
+  start_url: index.html,
+  display: standalone,
+  background_color: #0f172a,
+  theme_color: #064e3b,
+  orientation: any,
+  categories: [business, government, productivity, utilities],
+  icons: [
+    {
+      src: assets/icon.svg,
+      sizes: any,
+      type: image/svg+xml,
+      purpose: any maskable
+    }
+  ],
+  shortcuts: [
+    {
+      name: Farmer Slot Booking,
+      short_name: Book Slot,
+      description: Book Mandi intake shift and generate QR pass,
+      url: index.html#slot-booking-section,
+      icons: [{ src: assets/icon.svg, sizes: any }]
+    },
+    {
+      name: Staff Weighbridge Desk,
+      short_name: Staff Desk,
+      description: Gate scanner, weighbridge and quality testing,
+      url: index.html#staff-terminal,
+      icons: [{ src: assets/icon.svg, sizes: any }]
+    },
+    {
+      name: Admin Traffic Panel,
+      short_name: Admin Panel,
+      description: Declare Mandi road traffic and manage slots,
+      url: index.html#admin-control,
+      icons: [{ src: assets/icon.svg, sizes: any }]
+    }
+  ]
+}
