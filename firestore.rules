@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function employee() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/employees/$(request.auth.uid))
+        && get(/databases/$(database)/documents/employees/$(request.auth.uid)).data.active == true
+        && get(/databases/$(database)/documents/employees/$(request.auth.uid)).data.role in ['admin', 'staff'];
+    }
+    function admin() {
+      return employee() && get(/databases/$(database)/documents/employees/$(request.auth.uid)).data.role == 'admin';
+    }
+    function farmer() {
+      return signedIn() && request.auth.token.firebase.sign_in_provider == 'phone';
+    }
+    match /employees/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || admin());
+      allow write: if false;
+    }
+    match /centers/{id} {
+      allow read: if employee() || farmer();
+      allow write: if false;
+    }
+    match /slots/{id} {
+      allow read: if employee() || farmer();
+      allow write: if false;
+    }
+    match /bookings/{id} {
+      allow read: if admin()
+        || (farmer() && resource.data.farmerUid == request.auth.uid)
+        || (employee() && resource.data.centerId == get(/databases/$(database)/documents/employees/$(request.auth.uid)).data.centerId);
+      allow write: if false;
+    }
+    match /{document=**} { allow read, write: if false; }
+  }
+}
