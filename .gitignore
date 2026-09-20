@@ -1,0 +1,10 @@
+node_modules/
+.cache/
+.firebase/
+*-debug.log*
+.env*
+!.env.example
+coverage/
+test-results/
+dist/
+*service-account*.json
