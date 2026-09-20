@@ -1,6 +1,51 @@
 {
   "indexes": [
-    {"collectionGroup": "slots", "queryScope": "COLLECTION", "fields": [{"fieldPath": "centerId", "order": "ASCENDING"}, {"fieldPath": "date", "order": "ASCENDING"}, {"fieldPath": "remaining", "order": "ASCENDING"}]},
-    {"collectionGroup": "slots", "queryScope": "COLLECTION", "fields": [{"fieldPath": "centerId", "order": "ASCENDING"}, {"fieldPath": "date", "order": "ASCENDING"}]}
-  ], "fieldOverrides": []
+    {
+      "collectionGroup": "slots",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "centerId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "date",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "remaining",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "slots",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "centerId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "date",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "bookings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "centerId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "date",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
 }

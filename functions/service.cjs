@@ -27,7 +27,7 @@ function id(value) {
   return result;
 }
 function windowDate(date, shift, now) {
-  if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date) || !SHIFTS[shift]) fail('invalid-argument', 'Select a valid date and shift.');
+  if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date) || !Object.hasOwn(SHIFTS, shift)) fail('invalid-argument', 'Select a valid date and shift.');
   const parsed = new Date(`${date}T00:00:00Z`);
   if (!Number.isFinite(+parsed) || parsed.toISOString().slice(0, 10) !== date) fail('invalid-argument', 'Invalid date.');
   if (+new Date(`${date}T${SHIFTS[shift].end}:00+05:30`) <= now) fail('failed-precondition', 'This shift has already ended.');

@@ -133,12 +133,12 @@
         requestedRole = null; openDashboard();
       } else {
         subscribe('profile', sdk.doc(db, 'employees', user.uid), snapshot => {
+          if (snapshot.metadata.fromCache) return;
           const next = snapshot.data();
           if (!next?.active || !['staff', 'admin'].includes(next.role) || (requestedRole && requestedRole !== next.role)) {
             showToast('This account is not authorized for the selected portal or has been removed.', 'error');
             void handleSignOut(); return;
           }
-          if (snapshot.metadata.fromCache) return;
           const changed = !profile || profile.role !== next.role || profile.centerId !== next.centerId;
           profile = next; requestedRole = null;
           if (changed) openDashboard();
@@ -242,7 +242,7 @@
       if (snapshot.metadata.fromCache) { $('capacity-shifts').textContent = 'Connecting to live capacities…'; return; }
       renderCapacity(snapshot.docs.map(doc => doc.data()), centerId, date);
     }, () => { $('capacity-shifts').textContent = 'Unable to load capacity. Please reconnect and try again.'; });
-    subscribe('bookings', sdk.query(sdk.collection(db, 'bookings'), sdk.where('centerId', '==', centerId)), snapshot => {
+    subscribe('bookings', sdk.query(sdk.collection(db, 'bookings'), sdk.where('centerId', '==', centerId), sdk.where('date', '==', date)), snapshot => {
       renderBookings('employee-bookings', snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})).filter(booking => booking.date === date));
     }, () => { $('employee-bookings').textContent = 'Unable to load bookings.'; });
   }
